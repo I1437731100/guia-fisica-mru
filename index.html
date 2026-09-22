@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<!--GUIA-FISICA-MRU-FUENTE-->
+<html lang="es"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guía Interactiva — Física 10.° | MRU · Clase 2</title>
+<link rel="icon" href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'&gt;&lt;text y='.9em' font-size='90'&gt;🚌&lt;/text&gt;&lt;/svg&gt;">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+:root{--primario:#4f46e5;--primario-osc:#3730a3;--violeta:#7c3aed;--acento:#f59e0b;--ok:#16a34a;--mal:#dc2626;--fondo:#eef1f7;--texto:#1e293b;--gris:#64748b}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Poppins',system-ui,'Segoe UI',sans-serif;background:var(--fondo);color:var(--texto);line-height:1.55}
+section{scroll-margin-top:74px}
+.oculto{display:none!important}
+
+/* Barra de progreso */
+#progreso{position:sticky;top:0;z-index:60;display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);padding:10px 18px;border-bottom:1px solid #e2e8f0}
+#progresoTrack{flex:1;height:9px;background:#e2e8f0;border-radius:99px;overflow:hidden}
+#progresoFill{height:100%;width:0;background:linear-gradient(90deg,var(--primario),var(--violeta));border-radius:99px;transition:width .3s}
+#progresoTexto{font-size:.8rem;font-weight:600;color:var(--gris);white-space:nowrap}
+.chip-est{display:flex;align-items:center;gap:6px;background:#eef2ff;border:1.5px solid #c7d2fe;border-radius:99px;padding:4px 6px 4px 12px;font-size:.76rem;font-weight:700;color:var(--primario-osc);white-space:nowrap}
+.chip-est button{border:none;background:#fff;border-radius:99px;width:24px;height:24px;cursor:pointer;font-size:.75rem;line-height:1}
+.chip-est button:hover{background:#e0e7ff}
+
+/* Hero */
+.hero{background:linear-gradient(135deg,#134e4a 0%,#0d9488 55%,#0ea5e9 100%);color:#fff;text-align:center;padding:46px 20px 96px}
+.hero-login{padding-bottom:70px}
+.hero-badge{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);padding:5px 16px;border-radius:99px;font-size:.8rem;font-weight:600;margin-bottom:14px}
+.hero h1{font-size:clamp(1.5rem,4vw,2.3rem);font-weight:800;line-height:1.2}
+.hero-sub{margin:12px auto 0;max-width:640px;font-size:.98rem;opacity:.92}
+.hero-chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:20px}
+.hero-chips span{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);padding:6px 14px;border-radius:99px;font-size:.8rem;font-weight:600}
+.pasos{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:24px}
+.pasos div{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);border-radius:14px;padding:12px 18px;font-size:.82rem;max-width:190px;text-align:center}
+.pasos b{display:block;font-size:.9rem;margin-bottom:3px}
+
+/* Tarjetas */
+main{max-width:920px;margin:0 auto;padding:0 16px 70px}
+.tarjeta{background:#fff;border-radius:18px;box-shadow:0 14px 40px -22px rgba(15,23,42,.35);padding:26px;margin-bottom:24px}
+#datos{margin-top:-58px}
+h2{font-size:1.25rem;font-weight:800;margin-bottom:6px}
+.ej-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+.chip{background:#fef3c7;color:#92400e;font-size:.78rem;font-weight:700;padding:4px 12px;border-radius:99px;white-space:nowrap}
+.nota{color:var(--gris);font-size:.92rem;margin-bottom:10px}
+.mini{font-size:.82rem;color:var(--gris)}
+.mini-opc{font-weight:500;font-size:.78rem;color:#94a3b8}
+.enunciado{background:#f0fdfa;border-left:4px solid #0d9488;padding:12px 16px;border-radius:0 10px 10px 0;margin:10px 0 16px}
+.fuente{display:block;margin-top:6px;font-size:.78rem;color:#0f766e;font-weight:600}
+
+/* Datos del estudiante */
+.grid-datos{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:14px 0}
+.campo label{display:block;font-size:.85rem;font-weight:700;margin-bottom:6px}
+.campo input{width:100%;padding:12px 14px;border:2px solid #e2e8f0;border-radius:11px;font:inherit}
+.campo input:focus{outline:none;border-color:var(--primario);box-shadow:0 0 0 3px #e0e7ff}
+.campo-error{border-color:var(--mal)!important;background:#fef2f2!important}
+.aviso-sesion{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;background:#ecfdf5;border:1.5px solid #6ee7b7;border-radius:12px;padding:10px 14px;margin-bottom:6px;font-size:.88rem}
+.aviso-sesion button{border:none;background:#10b981;color:#fff;border-radius:9px;padding:8px 14px;font:inherit;font-size:.82rem;font-weight:700;cursor:pointer}
+@keyframes sacudir{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
+.sacudir{animation:sacudir .4s ease}
+
+/* Preguntas */
+.pregunta{border:1px solid #e2e8f0;background:#f8fafc;border-radius:14px;padding:16px;margin:16px 0}
+.preg-texto{font-weight:600;margin-bottom:10px}
+.opcion{display:flex;align-items:center;gap:10px;background:#fff;border:2px solid #e2e8f0;border-radius:11px;padding:10px 14px;margin:8px 0;cursor:pointer;transition:.15s}
+.opcion:hover{border-color:#a5b4fc}
+.opcion input{width:18px;height:18px;accent-color:var(--primario);flex-shrink:0;cursor:pointer}
+.opcion:has(input:checked){border-color:var(--primario);background:#eef2ff}
+.fill{width:88px;padding:8px 6px;border:2px solid #cbd5e1;border-radius:9px;text-align:center;font:inherit;font-weight:700}
+.fill:focus{outline:none;border-color:var(--primario);box-shadow:0 0 0 3px #e0e7ff}
+.completar p{margin:12px 0}
+.scroll-x{overflow-x:auto}
+.tabla{width:100%;border-collapse:collapse;margin:8px 0;font-size:.95rem}
+.tabla th,.tabla td{border:1px solid #e2e8f0;padding:10px 12px;text-align:center}
+.tabla th{background:#eef2ff}
+.abierta{width:100%;min-height:84px;padding:12px;border:2px solid #cbd5e1;border-radius:11px;font:inherit;font-size:.95rem;resize:vertical}
+.abierta:focus{outline:none;border-color:var(--primario);box-shadow:0 0 0 3px #e0e7ff}
+.lienzo-wrap{text-align:center}
+canvas.lienzo{width:100%;max-width:640px;height:auto;background:#fff;border:2px dashed #cbd5e1;border-radius:12px;touch-action:none;cursor:crosshair;display:block;margin:10px auto}
+.btn-mini{margin-top:4px;background:#eef2ff;color:var(--primario-osc);border:none;border-radius:9px;padding:8px 14px;font:inherit;font-size:.85rem;font-weight:700;cursor:pointer}
+.btn-ayuda{background:#eef2ff;color:var(--primario-osc);border:1.5px solid #c7d2fe;border-radius:99px;padding:7px 14px;font:inherit;font-size:.8rem;font-weight:700;cursor:pointer;white-space:nowrap}
+.btn-ayuda:hover{background:#e0e7ff}
+
+/* Feedback */
+.feedback{margin-top:8px;padding:8px 12px;border-radius:9px;font-size:.84rem;font-weight:600}
+.fb-ok{background:#dcfce7;color:#166534}
+.fb-mal{background:#fee2e2;color:#991b1b}
+.it-ok{border-color:var(--ok)!important;background:#f0fdf4!important}
+.it-mal{border-color:var(--mal)!important;background:#fef2f2!important}
+input.it-ok,textarea.it-ok{border-color:var(--ok)!important;background:#f0fdf4!important}
+input.it-mal,textarea.it-mal{border-color:var(--mal)!important;background:#fef2f2!important}
+
+/* Resumen */
+details summary{cursor:pointer;font-weight:800;font-size:1.05rem}
+details[open] summary{margin-bottom:12px}
+details.sub summary{font-size:.92rem;font-weight:700;color:var(--primario-osc)}
+details.sub{border:1px solid #e2e8f0;border-radius:12px;padding:12px 14px;margin:12px 0;background:#f8fafc}
+.resumen-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.res-item{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:12px 14px;font-size:.9rem}
+.res-item b{display:block;margin-bottom:4px}
+.equiv-caja{margin-top:14px;background:#eef2ff;border:1.5px solid #c7d2fe;border-radius:14px;padding:16px}
+.equiv-caja h3{font-size:1rem;margin-bottom:4px;color:var(--primario-osc)}
+.mini-tabla{width:100%;border-collapse:collapse;margin:8px 0;font-size:.88rem}
+.mini-tabla th,.mini-tabla td{border:1px solid #e2e8f0;padding:7px 10px;text-align:left}
+.mini-tabla th{background:#eef2ff}
+.mini-tabla code{white-space:nowrap}
+.idea-clave{margin-top:14px;background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:10px 14px;font-size:.92rem}
+.metodo-pasos{margin-top:14px;background:#f0fdfa;border:1px solid #99f6e4;border-radius:12px;padding:12px 16px;font-size:.92rem}
+.formula-inline{font-family:'Courier New',monospace;background:#fff;border:1px dashed #cbd5e1;border-radius:8px;padding:6px 10px;display:inline-block;margin-top:6px;font-size:.88rem}
+
+/* Tarea */
+.tarea-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.tarea-item{border:2px dashed #a5b4fc;border-radius:14px;padding:16px;background:#fafaff}
+.tarea-item h3{font-size:1rem;margin-bottom:6px}
+.rubrica{width:100%;border-collapse:collapse;margin:10px 0 0;font-size:.85rem}
+.rubrica th,.rubrica td{border:1px solid #e2e8f0;padding:7px 10px;text-align:left}
+.rubrica th{background:#eef2ff}
+
+/* Botones y resultados */
+.centro{text-align:center}
+.btn{display:inline-block;border:none;border-radius:12px;padding:13px 22px;font:inherit;font-weight:700;font-size:.98rem;cursor:pointer;text-decoration:none;transition:.15s}
+.btn-primario{background:linear-gradient(135deg,var(--primario),var(--violeta));color:#fff;box-shadow:0 10px 24px -10px rgba(79,70,229,.65)}
+.btn-primario:hover{transform:translateY(-2px)}
+.btn-primario:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.grande{font-size:1.08rem;padding:16px 34px}
+.btn-wa{background:#25d366;color:#fff}
+.btn-wa:hover{transform:translateY(-2px)}
+.btn-sec{background:#eef2ff;color:var(--primario-osc)}
+.botones{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin:18px 0 8px}
+.score-wrap{display:flex;align-items:center;gap:22px;flex-wrap:wrap;justify-content:center;text-align:center;margin-bottom:14px}
+.score-circulo{width:132px;height:132px;border-radius:50%;background:linear-gradient(135deg,var(--primario),var(--violeta));color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 14px 30px -12px rgba(79,70,229,.6)}
+.score-circulo span{font-size:2.5rem;font-weight:800;line-height:1}
+.score-circulo small{font-size:.8rem;opacity:.9}
+.fila-total td{background:#eef2ff;font-weight:800}
+footer{text-align:center;color:var(--gris);font-size:.8rem;padding:0 16px 40px}
+.link-panel{color:var(--gris);background:none;border:none;font:inherit;font-size:.8rem;text-decoration:underline;cursor:pointer}
+.link-panel:hover{color:var(--primario)}
+@media (max-width:560px){.tarjeta{padding:20px 16px}.hero{padding:36px 16px 84px}}
+
+/* ═══ BOTÓN FLOTANTE DE DUDA ═══ */
+#fabDuda{position:fixed;right:18px;bottom:18px;z-index:80;width:62px;height:62px;border-radius:50%;border:none;background:linear-gradient(135deg,var(--primario),var(--violeta));color:#fff;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:transform .15s;animation:pulso 2.6s ease-in-out infinite}
+#fabDuda:hover{transform:scale(1.08)}
+.fab-ico{font-size:1.45rem;line-height:1}
+.fab-txt{font-size:.55rem;font-weight:800;letter-spacing:.5px;text-transform:uppercase;opacity:.92;margin-top:1px}
+@keyframes pulso{0%,100%{box-shadow:0 12px 28px -8px rgba(79,70,229,.7)}50%{box-shadow:0 12px 32px -4px rgba(124,58,237,.9)}}
+
+/* ═══ MODAL DE AYUDA ═══ */
+.modal-overlay{position:fixed;inset:0;z-index:90;background:rgba(15,23,42,.55);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:16px}
+.modal-overlay.abierta{display:flex}
+.modal{background:#fff;border-radius:20px;max-width:780px;width:100%;max-height:86vh;display:flex;flex-direction:column;overflow:hidden;animation:saltar .25s ease;position:relative}
+@keyframes saltar{from{transform:translateY(26px);opacity:0}to{transform:none;opacity:1}}
+.modal-cerrar{position:absolute;top:12px;right:12px;z-index:2;width:36px;height:36px;border-radius:50%;border:none;background:#eef2ff;color:var(--primario-osc);font-size:1rem;font-weight:800;cursor:pointer}
+.tabs{display:flex;gap:6px;padding:14px 16px 0;flex-wrap:wrap;border-bottom:2px solid #eef2f6}
+.tab-btn{border:none;background:transparent;padding:10px 14px;font:inherit;font-size:.85rem;font-weight:700;color:var(--gris);cursor:pointer;border-radius:10px 10px 0 0;border-bottom:3px solid transparent}
+.tab-btn:hover{color:var(--primario)}
+.tab-btn.activa{color:var(--primario-osc);background:#eef2ff;border-bottom-color:var(--primario)}
+.modal-cuerpo{padding:18px 22px 28px;overflow-y:auto}
+.tab-panel{display:none}
+.tab-panel.activa{display:block;animation:aparecer .2s ease}
+@keyframes aparecer{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.tab-panel h3{font-size:1.02rem;margin:16px 0 6px;color:var(--primario-osc)}
+.tab-panel h3:first-child{margin-top:0}
+.tab-panel p,.tab-panel li{font-size:.93rem}
+.tab-panel ul{margin:6px 0 10px 20px}
+.tab-panel li{margin:5px 0}
+.lista-num{margin:6px 0 10px 22px}
+.lista-num li{margin:5px 0;font-size:.93rem}
+.formula{font-family:'Courier New',monospace;background:#f8fafc;border:1.5px dashed #cbd5e1;border-radius:10px;padding:10px 14px;margin:10px 0;font-size:.95rem}
+.caja-ejemplo{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:12px 14px;margin:10px 0;font-size:.92rem}
+.caja-tip{background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:10px 14px;margin:10px 0;font-size:.92rem}
+code{background:#eef2ff;padding:1px 6px;border-radius:6px;font-size:.85em}
+
+/* ═══ PANEL DEL PROFESOR ═══ */
+.panel-prof{border:2px solid #c7d2fe}
+.gh-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:14px 0}
+.token-wrap{position:relative}
+.token-wrap input{padding-right:52px}
+.token-wrap button{position:absolute;right:8px;top:50%;transform:translateY(-50%);border:none;background:#eef2ff;border-radius:8px;padding:6px 10px;cursor:pointer;font-size:.95rem}
+.gh-acciones{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+#ghLog{margin-top:12px;background:#0f172a;color:#e2e8f0;border-radius:12px;padding:14px;font-family:'Courier New',monospace;font-size:.85rem;display:flex;flex-direction:column;gap:6px;word-break:break-word}
+.gh-line.ok{color:#4ade80}.gh-line.err{color:#f87171}.gh-line.info{color:#93c5fd}
+#ghResultado{margin-top:14px;background:#f0fdf4;border:2px solid #86efac;border-radius:14px;padding:16px;text-align:center}
+#ghResultado .url{font-weight:800;color:#166534;word-break:break-all;margin-bottom:4px}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     VISTA 1 · REGISTRO (puerta de entrada)
+     ═══════════════════════════════════════════ -->
+<div id="vistaLogin">
+
+  <header class="hero hero-login">
+    <p class="hero-badge">FÍSICA 10.° GRADO · CLASE 2</p>
+    <h1>Cinemática del punto material · Movimiento Rectilíneo Uniforme (MRU)</h1>
+    <p class="hero-sub">Guía interactiva con evaluación automática sobre 20 puntos. Para acceder al contenido debes registrarte primero.</p>
+    <div class="pasos">
+      <div><b>1️⃣ Regístrate</b>Nombre, apellidos, grupo y celular</div>
+      <div><b>2️⃣ Resuelve</b>3 ejercicios + ticket de salida</div>
+      <div><b>3️⃣ Envía</b>Tu nota llega al profesor por WhatsApp</div>
+    </div>
+  </header>
+
+  <main>
+    <section class="tarjeta" id="datos">
+      <h2>👤 Registro del estudiante</h2>
+      <p class="nota">Completa <b>todos los campos</b> para desbloquear el resumen teórico y los ejercicios. Tus datos se adjuntarán a tu calificación para el profesor <b>Isniel Portela</b>.</p>
+
+      <div id="avisoSesion" class="aviso-sesion oculto">
+        <span id="avisoTxt"></span>
+        <button type="button" id="btnContinuarSesion">▶ Continuar</button>
+      </div>
+
+      <form id="formLogin" novalidate="">
+        <div class="grid-datos">
+          <div class="campo"><label for="nombre">Nombre *</label><input id="nombre" type="text" placeholder="Ej: Ana" autocomplete="given-name"></div>
+          <div class="campo"><label for="apellidos">Apellidos *</label><input id="apellidos" type="text" placeholder="Ej: Pérez García" autocomplete="family-name"></div>
+          <div class="campo"><label for="grupo">Grupo *</label><input id="grupo" type="text" placeholder="Ej: 10-A" autocomplete="off"></div>
+          <div class="campo"><label for="celular">Número de celular *</label><input id="celular" type="tel" inputmode="tel" placeholder="Ej: 5XXXXXXX" autocomplete="tel"></div>
+        </div>
+        <p class="mini" id="errorDatos" style="color:var(--mal);font-weight:700;margin:0 0 10px"></p>
+        <div class="centro">
+          <button type="submit" id="btnComenzar" class="btn btn-primario grande">🔓 Desbloquear la guía</button>
+        </div>
+        <p class="mini centro" style="margin-top:12px">🔒 Tus datos solo se usan para identificar tu evaluación y enviarla al profesor. <span id="fechaLogin">📅 martes, 22 de septiembre de 2026</span></p>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    Guía de ejercicios — Física 10.° grado · Clase 2: Cinemática del punto material. Movimiento mecánico. MRU<br>
+    <button class="link-panel" type="button">🔐 Panel del profesor</button>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     VISTA 2 · GUÍA (bloqueada hasta registrarse)
+     ═══════════════════════════════════════════ -->
+<div id="vistaGuia" class="oculto">
+
+  <div id="progreso">
+    <div id="progresoTrack"><div id="progresoFill" style="width:0"></div></div>
+    <span id="progresoTexto">0 / 22 respondidas</span>
+    <span class="chip-est oculto" id="chipEst">👤 <span id="chipNombre"></span><button type="button" id="btnCambiarDatos" title="Editar mis datos">✏️</button></span>
+  </div>
+
+  <header class="hero">
+    <p class="hero-badge">FÍSICA 10.° GRADO · CLASE 2</p>
+    <h1>Cinemática del punto material · Movimiento Rectilíneo Uniforme</h1>
+    <p class="hero-sub">Guía desbloqueada ✔ Caracteriza el MRU a partir de la constancia del vector velocidad y resuelve problemas analíticos y gráficos del transporte y la vida diaria.</p>
+    <div class="hero-chips">
+      <span>🎯 20 puntos</span><span>🧮 3 notaciones, 1 ecuación</span><span>⚡ Calificación al instante</span><span>📲 WhatsApp</span><span>❓ Ayuda flotante</span><span>👩‍🏫 Prof. Isniel Portela</span>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ══════════ RESUMEN TEÓRICO ENRIQUECIDO ══════════ -->
+    <section class="tarjeta" data-ayuda="general">
+      <details open="">
+        <summary>📘 Resumen expreso (repaso antes de comenzar)</summary>
+
+        <div class="resumen-grid">
+          <div class="res-item"><b>🚗 Movimiento mecánico</b>Cambio de posición de un cuerpo respecto a otros que se toman como <b>sistema de referencia</b>. Es <b>relativo</b>: el pasajero de un ómnibus está en reposo respecto al ómnibus, pero en movimiento respecto a los edificios de la carretera.</div>
+          <div class="res-item"><b>⚪ Punto material</b>Idealización: se desprecian las dimensiones del cuerpo cuando son <b>muy pequeñas frente a la distancia recorrida</b>. Un ómnibus es «punto material» en el viaje entre dos ciudades, pero no al aparcar en la terminal.</div>
+          <div class="res-item"><b>🧭 Sistema de referencia</b>Origen + ejes de coordenadas + reloj. Fija la <b>posición</b> x (dónde está el móvil en cada instante) y permite medir tiempos. <b>Sin sistema de referencia no tiene sentido hablar de movimiento.</b></div>
+          <div class="res-item"><b>🛤️ Trayectoria</b>Línea que une las sucesivas posiciones del móvil. <b>Recta</b> → movimiento rectilíneo. <b>Curva</b> → movimiento curvilíneo. El MRU es siempre de trayectoria recta.</div>
+          <div class="res-item"><b>📏 Distancia vs. desplazamiento</b><b>Distancia recorrida:</b> escalar, todo lo que «marca el odómetro». <b>Desplazamiento:</b> vector, cambio de posición (de x₀ a x). En MRU sin cambio de sentido <b>coinciden en módulo</b>.</div>
+          <div class="res-item"><b>🏃 Rapidez vs. velocidad</b><b>Rapidez:</b> escalar, solo el módulo (lo que marca el velocímetro). <b>Velocidad:</b> vectorial — módulo, <b>dirección y sentido</b>. Girar en una curva a rapidez fija <b>cambia la velocidad</b>.</div>
+          <div class="res-item"><b>📏 El MRU</b>Trayectoria recta + <b>velocidad constante</b> (no cambian módulo, dirección ni sentido) → el móvil recorre <b>distancias iguales en tiempos iguales</b>. La velocidad media y la instantánea <b>coinciden</b>.</div>
+          <div class="res-item"><b>⚖️ De la velocidad a la ecuación de posición</b>Δ (delta) significa «variación»: Δx = x − x₀ (final − inicial).<br>Partiendo de v = (x − x₀)/t:<br>① multiplicar por t → v·t = x − x₀<br>② despejar x → <b>x = x₀ + v·t</b></div>
+          <div class="res-item"><b>🔄 Conversión de unidades</b>1 km = 1000 m y 1 h = 3600 s → 1 km/h = 1000/3600 m/s = <b>1/3,6 m/s</b>.<br>De km/h a m/s: <b>÷ 3,6</b> · De m/s a km/h: <b>× 3,6</b></div>
+          <div class="res-item"><b>📊 Leer una tabla x-t</b><table class="mini-tabla"><tbody><tr><th>t (s)</th><td>0</td><td>1</td><td>2</td><td>3</td></tr><tr><th>x (m)</th><td>10</td><td>30</td><td>50</td><td>70</td></tr></tbody></table>Cada segundo avanza 20 m → Δx igual en Δt iguales → <b>es MRU con v = 20 m/s</b>.</div>
+          <div class="res-item"><b>📈 Gráficas del MRU</b><b>x-t:</b> recta inclinada; su <b>pendiente</b> es la velocidad (si v &lt; 0, la recta baja).<br><b>v-t:</b> recta <b>horizontal</b> a la altura de v; el <b>área</b> bajo ella (v·t) es la distancia recorrida.</div>
+          <div class="res-item"><b>🧠 Método de trabajo (3 pasos)</b>① Identifica los datos: x₀, v, t (¡y convierte unidades!).<br>② Escribe la ecuación en la notación que prefieras.<br>③ Sustituye y resuelve, con unidades en cada número.</div>
+        </div>
+
+        <div class="equiv-caja">
+          <h3>🧮 Un mismo problema, tres notaciones</h3>
+          <p class="mini" style="margin-bottom:8px">Las tres formas expresan <b>exactamente la misma ecuación</b>. Elige la que te pida el ejercicio o la que resulte más cómoda:</p>
+          <table class="mini-tabla">
+            <tbody><tr><th>Notación</th><th>Significado</th></tr>
+            <tr><td><code>x = x₀ + v·t</code></td><td><b>Forma general:</b> posición en función del tiempo</td></tr>
+            <tr><td><code>xf = x₀ + v·t</code></td><td><b>Forma explícita:</b> posición final después de un tiempo t</td></tr>
+            <tr><td><code>x(t) = x₀ + v·t</code></td><td><b>Forma funcional:</b> la posición depende del tiempo</td></tr>
+          </tbody></table>
+          <p class="mini">📌 En los tres casos: <b>x (o xf, o x(t))</b> es la posición del móvil <b>en el instante t</b>; <b>x₀</b> es la posición inicial (la del instante t = 0) y <b>v</b> la velocidad constante. En un problema con x₀ = 0, la ecuación se simplifica a <code>x = v·t</code>.</p>
+        </div>
+
+        <p class="idea-clave">💡 <b>Idea clave:</b> la velocidad es un <b>vector</b>. Que sea constante significa que no cambian <b>ni el módulo, ni la dirección, ni el sentido</b>. Que el velocímetro marque fijo no basta: también debe mantenerse la recta.</p>
+      </details>
+    </section>
+
+    <div id="cuestionario">
+
+      <!-- EJERCICIO 1 -->
+      <section class="tarjeta" id="ej1" data-ayuda="ej1">
+        <div class="ej-head"><h2>🚗 Ejercicio 1. Detectives del movimiento</h2><button class="btn-ayuda" data-tab="ej1" type="button">❓ Explicación</button><span class="chip">5 puntos · 1 c/u</span></div>
+        <p class="nota">Marca la respuesta correcta.</p>
+
+        <div class="pregunta"><p class="preg-texto"><b>1.</b> ¿Qué caracteriza al <b>movimiento rectilíneo uniforme (MRU)</b>?</p>
+          <div class="mc" data-pts="1" data-correcta="0" data-ej="1" data-tag="1">
+            <label class="opcion"><input type="radio" name="e1q1" value="0"><span class="op-texto">Trayectoria recta y velocidad constante</span></label>
+            <label class="opcion"><input type="radio" name="e1q1" value="1"><span class="op-texto">Trayectoria curva y velocidad constante</span></label>
+            <label class="opcion"><input type="radio" name="e1q1" value="2"><span class="op-texto">Trayectoria recta y velocidad variable</span></label>
+            <label class="opcion"><input type="radio" name="e1q1" value="3"><span class="op-texto">Cualquier trayectoria con rapidez creciente</span></label>
+          </div>
+        </div>
+
+        <div class="pregunta"><p class="preg-texto"><b>2.</b> En la ecuación <code>xf = x₀ + v·t</code>, el símbolo <b>x₀</b> representa:</p>
+          <div class="mc" data-pts="1" data-correcta="2" data-ej="1" data-tag="2">
+            <label class="opcion"><input type="radio" name="e1q2" value="0"><span class="op-texto">La posición final del móvil</span></label>
+            <label class="opcion"><input type="radio" name="e1q2" value="1"><span class="op-texto">El tiempo inicial</span></label>
+            <label class="opcion"><input type="radio" name="e1q2" value="2"><span class="op-texto">La posición inicial (la posición en el instante t = 0)</span></label>
+            <label class="opcion"><input type="radio" name="e1q2" value="3"><span class="op-texto">La velocidad del móvil</span></label>
+          </div>
+        </div>
+
+        <div class="pregunta"><p class="preg-texto"><b>3.</b> En la gráfica <b>posición-tiempo (x-t)</b> de un móvil en MRU, la pendiente de la recta representa:</p>
+          <div class="mc" data-pts="1" data-correcta="2" data-ej="1" data-tag="3">
+            <label class="opcion"><input type="radio" name="e1q3" value="0"><span class="op-texto">La posición inicial</span></label>
+            <label class="opcion"><input type="radio" name="e1q3" value="1"><span class="op-texto">La aceleración</span></label>
+            <label class="opcion"><input type="radio" name="e1q3" value="2"><span class="op-texto">La velocidad</span></label>
+            <label class="opcion"><input type="radio" name="e1q3" value="3"><span class="op-texto">El tiempo transcurrido</span></label>
+          </div>
+        </div>
+
+        <div class="pregunta"><p class="preg-texto"><b>4.</b> Las escrituras <code>x = x₀ + v·t</code>, <code>xf = x₀ + v·t</code> y <code>x(t) = x₀ + v·t</code>:</p>
+          <div class="mc" data-pts="1" data-correcta="1" data-ej="1" data-tag="4">
+            <label class="opcion"><input type="radio" name="e1q4" value="0"><span class="op-texto">Son tres ecuaciones diferentes que no se pueden combinar</span></label>
+            <label class="opcion"><input type="radio" name="e1q4" value="1"><span class="op-texto">Representan la misma ecuación: solo cambia la notación</span></label>
+            <label class="opcion"><input type="radio" name="e1q4" value="2"><span class="op-texto">Solo la forma x = x₀ + v·t es correcta</span></label>
+            <label class="opcion"><input type="radio" name="e1q4" value="3"><span class="op-texto">Son formas de la ecuación de velocidad Δx/Δt</span></label>
+          </div>
+        </div>
+
+        <div class="pregunta"><p class="preg-texto"><b>5.</b> Un móvil en MRU recorre:</p>
+          <div class="mc" data-pts="1" data-correcta="2" data-ej="1" data-tag="5">
+            <label class="opcion"><input type="radio" name="e1q5" value="0"><span class="op-texto">Distancias cada vez mayores en tiempos iguales</span></label>
+            <label class="opcion"><input type="radio" name="e1q5" value="1"><span class="op-texto">Siempre la misma distancia, sin importar el tiempo</span></label>
+            <label class="opcion"><input type="radio" name="e1q5" value="2"><span class="op-texto">Distancias iguales en intervalos de tiempo iguales</span></label>
+            <label class="opcion"><input type="radio" name="e1q5" value="3"><span class="op-texto">Distancias proporcionales al cuadrado del tiempo</span></label>
+          </div>
+        </div>
+      </section>
+
+      <!-- EJERCICIO 2 (NUEVO · análogo al dictado de clase) -->
+      <section class="tarjeta" id="ej2" data-ayuda="ej2">
+        <div class="ej-head"><h2>🚌 Ejercicio 2. El ómnibus en la carretera</h2><button class="btn-ayuda" data-tab="ej2" type="button">❓ Explicación</button><span class="chip">7 puntos</span></div>
+        <p class="enunciado">Un ómnibus se desplaza por una carretera recta con velocidad constante de <b>90 km/h</b>. Calcula la distancia recorrida, en metros, al cabo de <b>20 segundos</b>.
+        <span class="fuente">✏️ Ejercicio nuevo: aplica el mismo método trabajado en el dictado de clase.</span></p>
+
+        <div class="pregunta">
+          <p class="preg-texto"><b>A.</b> Dibuja la gráfica <b>velocidad-tiempo (v-t)</b> del ómnibus <span class="mini-opc">(opcional · no califica, pero se reporta al profesor)</span></p>
+          <div class="lienzo-wrap">
+            <canvas id="lienzoEj2" class="lienzo" width="640" height="300"></canvas>
+            <button type="button" id="btnBorrarEj2" class="btn-mini">🧽 Borrar dibujo</button>
+          </div>
+        </div>
+
+        <div class="pregunta"><p class="preg-texto"><b>B.</b> La conversión correcta de <b>90 km/h a m/s</b> es:</p>
+          <div class="mc" data-pts="1" data-correcta="0" data-ej="2" data-tag="B">
+            <label class="opcion"><input type="radio" name="e2b" value="0"><span class="op-texto">90 ÷ 3,6 = 25 m/s</span></label>
+            <label class="opcion"><input type="radio" name="e2b" value="1"><span class="op-texto">90 × 3,6 = 324 m/s</span></label>
+            <label class="opcion"><input type="radio" name="e2b" value="2"><span class="op-texto">90 ÷ 60 = 1,5 m/s</span></label>
+            <label class="opcion"><input type="radio" name="e2b" value="3"><span class="op-texto">90 ÷ 100 = 0,9 m/s</span></label>
+          </div>
+        </div>
+
+        <div class="pregunta"><p class="preg-texto"><b>C.</b> Con velocidad constante y trayectoria recta, la distancia recorrida se calcula con:</p>
+          <div class="mc" data-pts="1" data-correcta="0" data-ej="2" data-tag="C">
+            <label class="opcion"><input type="radio" name="e2c" value="0"><span class="op-texto">d = v · t</span></label>
+            <label class="opcion"><input type="radio" name="e2c" value="1"><span class="op-texto">d = v / t</span></label>
+            <label class="opcion"><input type="radio" name="e2c" value="2"><span class="op-texto">d = v · t²</span></label>
+            <label class="opcion"><input type="radio" name="e2c" value="3"><span class="op-texto">d = x₀ · v · t</span></label>
+          </div>
+        </div>
+
+        <div class="pregunta">
+          <p class="preg-texto"><b>D.</b> Completa <span class="mini-opc">(1 pto por espacio)</span>:</p>
+          <div class="completar">
+            <p>d = v · t = 25 m/s · 20 s =
+              <input class="fill" inputmode="decimal" data-pts="1" data-num="500" data-ej="2" data-tag="D1" data-ejemplar="500" placeholder="?"> m</p>
+            <p>Esa distancia equivale a
+              <input class="fill" inputmode="decimal" data-pts="1" data-num="0.5" data-ej="2" data-tag="D2" data-ejemplar="0,5" placeholder="?"> km</p>
+          </div>
+        </div>
+
+        <div class="pregunta"><p class="preg-texto"><b>E.</b> ¿Cómo es la gráfica <b>posición-tiempo (x-t)</b> de este ómnibus?</p>
+          <div class="mc" data-pts="1" data-correcta="1" data-ej="2" data-tag="E">
+            <label class="opcion"><input type="radio" name="e2e" value="0"><span class="op-texto">Una recta horizontal</span></label>
+            <label class="opcion"><input type="radio" name="e2e" value="1"><span class="op-texto">Una recta inclinada ascendente</span></label>
+            <label class="opcion"><input type="radio" name="e2e" value="2"><span class="op-texto">Una parábola</span></label>
+            <label class="opcion"><input type="radio" name="e2e" value="3"><span class="op-texto">Una recta descendente</span></label>
+          </div>
+        </div>
+
+        <div class="pregunta"><p class="preg-texto"><b>F.</b> Si el tiempo viajado fuera el doble (<b>40 s</b>), la distancia recorrida sería:</p>
+          <div class="mc" data-pts="1" data-correcta="3" data-ej="2" data-tag="F">
+            <label class="opcion"><input type="radio" name="e2f" value="0"><span class="op-texto">La misma: 500 m</span></label>
+            <label class="opcion"><input type="radio" name="e2f" value="1"><span class="op-texto">La mitad: 250 m</span></label>
+            <label class="opcion"><input type="radio" name="e2f" value="2"><span class="op-texto">El triple: 1500 m</span></label>
+            <label class="opcion"><input type="radio" name="e2f" value="3"><span class="op-texto">El doble: 1000 m</span></label>
+          </div>
+        </div>
+
+        <div class="pregunta">
+          <p class="preg-texto"><b>G.</b> Explica por qué, con velocidad constante, la distancia recorrida es <b>directamente proporcional</b> al tiempo. <span class="mini-opc">(1 pto)</span></p>
+          <textarea class="abierta" data-pts="1" data-ej="2" data-tag="G" data-claves="constante,proporcional,igual,razon,doble,mitad,mismo,intervalo" data-solucion="Porque al ser v constante, en cada intervalo de tiempo igual recorre la misma distancia: si duplico el tiempo, duplico la distancia (d = v·t con v fija)." placeholder="Escribe tu explicación..."></textarea>
+        </div>
+      </section>
+
+      <!-- EJERCICIO 3 (NUEVO · análogo al dictado de clase) -->
+      <section class="tarjeta" id="ej3" data-ayuda="ej3">
+        <div class="ej-head"><h2>🤝 Ejercicio 3. El encuentro de dos móviles</h2><button class="btn-ayuda" data-tab="ej3" type="button">❓ Explicación</button><span class="chip">7 puntos</span></div>
+        <p class="enunciado">Dos pueblos A y B distan entre sí <b>150 km</b>. Desde A parte un carro hacia B con velocidad constante de <b>80 km/h</b> y, al mismo tiempo, desde B parte hacia A un camión con velocidad constante de <b>70 km/h</b>. ¿En qué instante y a qué distancia de A se encuentran?
+        <span class="fuente">✏️ Ejercicio nuevo: aplica el mismo método trabajado en el dictado de clase.</span></p>
+
+        <div class="pregunta">
+          <p class="preg-texto"><b>A.</b> Dibuja las gráficas <b>x<sub>A</sub>(t) y x<sub>B</sub>(t)</b> <span class="mini-opc">(opcional · toma A como origen y +x hacia B · no califica, pero se reporta)</span></p>
+          <div class="lienzo-wrap">
+            <canvas id="lienzoEj3" class="lienzo" width="640" height="300"></canvas>
+            <button type="button" id="btnBorrarEj3" class="btn-mini">🧽 Borrar dibujo</button>
+          </div>
+        </div>
+
+        <div class="pregunta">
+          <p class="preg-texto"><b>B.</b> Completa las ecuaciones de posición <span class="mini-opc">(0,5 pto por espacio · x en km, t en h)</span>:</p>
+          <div class="completar">
+            <p>x<sub>A</sub>(t) = 80 · t &nbsp;&nbsp;(forma funcional)</p>
+            <p>x<sub>B</sub>(t) =
+              <input class="fill" inputmode="decimal" data-pts="0.5" data-num="150" data-ej="3" data-tag="B1" data-ejemplar="150" placeholder="?"> −
+              <input class="fill" inputmode="decimal" data-pts="0.5" data-num="70" data-ej="3" data-tag="B2" data-ejemplar="70" placeholder="?"> · t</p>
+          </div>
+        </div>
+
+        <div class="pregunta"><p class="preg-texto"><b>C.</b> En el instante del <b>encuentro</b> se cumple que:</p>
+          <div class="mc" data-pts="1" data-correcta="0" data-ej="3" data-tag="C">
+            <label class="opcion"><input type="radio" name="e3c" value="0"><span class="op-texto">x_A(t) = x_B(t): ambos están en el mismo lugar al mismo tiempo</span></label>
+            <label class="opcion"><input type="radio" name="e3c" value="1"><span class="op-texto">v_A = v_B: llevan la misma velocidad</span></label>
+            <label class="opcion"><input type="radio" name="e3c" value="2"><span class="op-texto">x_A + x_B = 0</span></label>
+            <label class="opcion"><input type="radio" name="e3c" value="3"><span class="op-texto">Los dos llevan recorrido los 150 km</span></label>
+          </div>
+        </div>
+
+        <div class="pregunta">
+          <p class="preg-texto"><b>D.</b> Completa el despeje <span class="mini-opc">(0,5 pto por espacio)</span>:</p>
+          <div class="completar">
+            <p>80t = 150 − 70t ⇒
+              <input class="fill" inputmode="decimal" data-pts="0.5" data-num="150" data-ej="3" data-tag="D1" data-ejemplar="150" placeholder="?"> · t = 150 ⇒ t =
+              <input class="fill" inputmode="decimal" data-pts="0.5" data-num="1" data-tol="0.05" data-ej="3" data-tag="D2" data-ejemplar="1,0" placeholder="?"> h</p>
+          </div>
+        </div>
+
+        <div class="pregunta">
+          <p class="preg-texto"><b>E.</b> Posición del encuentro medida desde A <span class="mini-opc">(1 pto)</span>:</p>
+          <div class="completar"><p>x<sub>f</sub> = 80 · 1,0 =
+            <input class="fill" inputmode="decimal" data-pts="1" data-num="80" data-ej="3" data-tag="E" data-ejemplar="80" placeholder="?"> km</p></div>
+        </div>
+
+        <div class="pregunta">
+          <p class="preg-texto"><b>F.</b> ¿A qué distancia de <b>B</b> se produce el encuentro? <span class="mini-opc">(1 pto)</span></p>
+          <div class="completar"><p>x<sub>desde B</sub> = 150 − 80 =
+            <input class="fill" inputmode="decimal" data-pts="1" data-num="70" data-ej="3" data-tag="F" data-ejemplar="70" placeholder="?"> km</p></div>
+        </div>
+
+        <div class="pregunta"><p class="preg-texto"><b>G.</b> En la gráfica x-t de los dos móviles, el encuentro corresponde a:</p>
+          <div class="mc" data-pts="1" data-correcta="0" data-ej="3" data-tag="G">
+            <label class="opcion"><input type="radio" name="e3g" value="0"><span class="op-texto">El punto donde las dos rectas se cortan</span></label>
+            <label class="opcion"><input type="radio" name="e3g" value="1"><span class="op-texto">Donde la recta del carro corta el eje del tiempo</span></label>
+            <label class="opcion"><input type="radio" name="e3g" value="2"><span class="op-texto">Donde las dos rectas son paralelas</span></label>
+            <label class="opcion"><input type="radio" name="e3g" value="3"><span class="op-texto">El origen de coordenadas</span></label>
+          </div>
+        </div>
+
+        <div class="pregunta"><p class="preg-texto"><b>H.</b> Como los móviles viajan <b>uno hacia el otro</b>, su rapidez de aproximación es:</p>
+          <div class="mc" data-pts="1" data-correcta="1" data-ej="3" data-tag="H">
+            <label class="opcion"><input type="radio" name="e3h" value="0"><span class="op-texto">80 − 70 = 10 km/h</span></label>
+            <label class="opcion"><input type="radio" name="e3h" value="1"><span class="op-texto">80 + 70 = 150 km/h</span></label>
+            <label class="opcion"><input type="radio" name="e3h" value="2"><span class="op-texto">80 × 70 = 5600 km/h</span></label>
+            <label class="opcion"><input type="radio" name="e3h" value="3"><span class="op-texto">150 ÷ 80 km/h</span></label>
+          </div>
+        </div>
+      </section>
+
+      <!-- TICKET DE SALIDA -->
+      <section class="tarjeta" id="ticket" data-ayuda="ticket">
+        <div class="ej-head"><h2>🎫 Ticket de salida</h2><button class="btn-ayuda" data-tab="ticket" type="button">❓ Explicación</button><span class="chip">1 punto</span></div>
+        <p class="preg-texto">En la carretera, el <b>velocímetro</b> de un carro marca siempre <b>60 km/h</b>. ¿Es suficiente para afirmar que su movimiento es <b>MRU</b>? ¿Por qué?</p>
+        <textarea class="abierta" data-pts="1" data-ej="4" data-tag="Ticket" data-claves="direccion,sentido,modulo,rapidez,curva,vector,recta,escalar" data-solucion="No. El velocímetro solo mide el módulo (rapidez). En el MRU deben ser constantes también la dirección y el sentido: si el carro gira en una curva a 60 km/h, la velocidad cambia y no es MRU." placeholder="Responde en una línea..."></textarea>
+      </section>
+
+    </div><!-- /cuestionario -->
+
+    <!-- TAREA EXTRACLASE -->
+    <section class="tarjeta" id="tarea" data-ayuda="tarea">
+      <div class="ej-head"><h2>📚 Tarea extraclase (libreta)</h2><button class="btn-ayuda" data-tab="tarea" type="button">❓ Explicación</button><span class="chip">Para la libreta · se revisa en la Clase 3</span></div>
+      <p class="nota">Estas tareas <b>no se responden en la app</b>: se realizan en tu libreta y se revisan en la próxima clase.</p>
+      <div class="tarea-grid">
+        <div class="tarea-item">
+          <h3>✍️ Estudio independiente</h3>
+          <p class="mini"><b>Dictado:</b> «Construye en tu libreta la gráfica x-t para un móvil que parte de <b>x₀ = 10 m</b> y se mueve con <b>v = −2,0 m/s</b> durante <b>8,0 s</b>. Interpreta el significado del signo negativo de la velocidad.»</p>
+          <p class="mini" style="margin-top:8px">📖 Texto de Física 10.°, 3er Perfeccionamiento, pág. 32, Ejercicio 5 · Recogida y revisión en la <b>Clase 3</b>.</p>
+          <p class="mini" style="margin-top:8px">💡 Usa la ecuación x(t) = x₀ + v·t en su forma funcional, haz una tabla de valores y une los puntos con regla. En la ayuda ❓ tienes un ejemplo parecido resuelto.</p>
+        </div>
+        <div class="tarea-item">
+          <h3>✅ Evaluación sistemática (base 20)</h3>
+          <p class="mini">Revisión en libreta del <b>Ejercicio de Estudio Independiente de la Clase 1</b> (Avión y viento):</p>
+          <table class="rubrica">
+            <tbody><tr><th>Puntos</th><th>Criterio</th></tr>
+            <tr><td><b>20</b></td><td>Respuesta correcta con gráfico vectorial correcto</td></tr>
+            <tr><td><b>15</b></td><td>Calcula bien el módulo, pero falla el ángulo</td></tr>
+            <tr><td><b>10</b></td><td>Errores conceptuales graves en la adición vectorial</td></tr>
+          </tbody></table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ENVIAR -->
+    <section class="tarjeta centro" id="envio">
+      <p style="margin-bottom:14px">¿Terminaste? Califica tu guía automáticamente 👇</p>
+      <button id="btnCalificar" class="btn btn-primario grande">✅ Calificar mi guía</button>
+      <p class="mini" style="margin-top:12px">Obtendrás tu nota sobre <b>20 puntos</b> y el botón para enviar el resultado por WhatsApp al profesor.</p>
+    </section>
+
+    <!-- RESULTADOS -->
+    <section class="tarjeta oculto" id="resultados">
+      <div class="score-wrap">
+        <div class="score-circulo"><span id="scoreNum">—</span><small>/ 20 puntos</small></div>
+        <div><h2 id="scoreMensaje"></h2><p class="mini" id="scorePct"></p></div>
+      </div>
+      <div class="scroll-x"><table class="tabla" id="tablaDetalle"></table></div>
+      <p class="mini" style="text-align:center;margin-top:10px">Revisa las marcas ✔/✘ en cada pregunta para ver las respuestas correctas.</p>
+      <div class="botones">
+        <a id="btnWhatsApp" class="btn btn-wa" href="#" target="_blank" rel="noopener">📲 Enviar resultado por WhatsApp al profesor</a>
+        <button id="btnCopiar" class="btn btn-sec">📋 Copiar resumen</button>
+        <button id="btnReiniciar" class="btn btn-sec">🔄 Reiniciar</button>
+      </div>
+      <p class="mini" style="text-align:center">Profesor: <b>Isniel Portela</b> · Se abrirá WhatsApp con el mensaje listo; solo debes presionar "Enviar".</p>
+    </section>
+
+  </main>
+
+  <footer>
+    Guía de ejercicios — Física 10.° grado · Clase 2: Cinemática del punto material. Movimiento mecánico. MRU<br>
+    <button class="link-panel" type="button">🔐 Panel del profesor</button>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PANEL DEL PROFESOR
+     ═══════════════════════════════════════════ -->
+<div id="panelWrap" class="oculto" style="max-width:920px;margin:0 auto;padding:0 16px 50px">
+  <section class="tarjeta panel-prof" id="panelProfesor">
+    <details open="">
+      <summary>🔐 Panel del profesor — Publicar la guía en GitHub Pages</summary>
+      <p class="nota" style="margin-top:10px">Convierte este archivo en una página web con enlace propio para todo el grupo, usando la API oficial de GitHub con un <b>token clásico</b> tuyo. El token viaja directo de tu navegador a <code>api.github.com</code> por HTTPS: <b>no se guarda, no se publica y no se envía a ningún otro sitio</b>.</p>
+
+      <details class="sub">
+        <summary>🧾 ¿Cómo crear el token clásico? (paso a paso)</summary>
+        <ol class="lista-num">
+          <li>Abre <a href="https://github.com/settings/tokens/new?scopes=repo&amp;description=Guia%20Fisica%20MRU" target="_blank" rel="noopener">GitHub → Generate new token (classic)</a> — el enlace ya deja marcado el scope <b>repo</b>.</li>
+          <li>Ponle nombre (ej.: <i>Guía Física MRU</i>) y una expiración corta (7 días es suficiente).</li>
+          <li>Marca únicamente el scope <b>repo</b>.</li>
+          <li>Pulsa <b>Generate token</b> y copia la clave que empieza por <code>ghp_…</code>.</li>
+          <li>Pégala aquí abajo, publica y, al terminar, puedes <b>revocar el token</b> tranquilamente.</li>
+        </ol>
+      </details>
+
+      <div class="gh-grid">
+        <div class="campo"><label for="ghUser">Usuario de GitHub *</label><input id="ghUser" placeholder="tu-usuario" autocomplete="off"></div>
+        <div class="campo"><label for="ghRepo">Nombre del repositorio *</label><input id="ghRepo" value="guia-fisica-mru" autocomplete="off"></div>
+        <div class="campo token-wrap"><label for="ghToken">Token clásico (ghp_…) *</label><input id="ghToken" type="text" placeholder="ghp_..." autocomplete="off"><button type="button" id="btnGhVer" title="Mostrar / ocultar">👁</button></div>
+        <div class="campo"><label for="ghMsg">Mensaje del commit</label><input id="ghMsg" value="Publicación de la guía MRU (Clase 2)" autocomplete="off"></div>
+      </div>
+      <label class="mini" style="display:flex;gap:8px;align-items:center;margin:6px 0 12px;cursor:pointer"><input type="checkbox" id="ghCrear" checked="" style="width:16px;height:16px;accent-color:var(--primario)"> Crear el repositorio automáticamente si no existe (público)</label>
+
+      <div class="gh-acciones">
+        <button id="btnGhPublicar" class="btn btn-primario">🚀 Publicar / actualizar</button>
+        <button id="btnGhProbar" class="btn btn-sec">🔌 Probar token</button>
+      </div>
+
+      <div id="ghLog" class="oculto"></div>
+      <div id="ghResultado" class="oculto"></div>
+
+      <p class="mini" style="margin-top:12px">🔒 <b>Privacidad:</b> el token vive solo en memoria durante esta sesión y <b>nunca se incluye en el archivo publicado</b>. La primera publicación tarda 1–2 minutos en estar visible. Para actualizar la guía después, abre esta página, pega el token de nuevo y pulsa «Publicar».</p>
+    </details>
+  </section>
+</div>
+
+<!-- ══════════ BOTÓN FLOTANTE + MODAL DE AYUDA ══════════ -->
+<button id="fabDuda" class="oculto" aria-label="Ayuda y explicaciones" title="Explicaciones paso a paso">
+  <span class="fab-ico">❓</span><span class="fab-txt" id="fabTxt">duda</span>
+</button>
+
+<div id="modalDuda" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Explicaciones de la guía">
+  <div class="modal">
+    <button class="modal-cerrar" id="btnCerrarModal" aria-label="Cerrar">✕</button>
+    <div class="tabs">
+      <button class="tab-btn activa" data-tab="general">📘 General</button>
+      <button class="tab-btn" data-tab="ej1">🚗 Ej. 1</button>
+      <button class="tab-btn" data-tab="ej2">🚌 Ej. 2</button>
+      <button class="tab-btn" data-tab="ej3">🤝 Ej. 3</button>
+      <button class="tab-btn" data-tab="ticket">🎫 Ticket</button>
+      <button class="tab-btn" data-tab="tarea">📚 Tarea</button>
+    </div>
+    <div class="modal-cuerpo">
+
+      <section class="tab-panel activa" id="tab-general">
+        <h3>🎯 ¿Cómo funciona esta guía?</h3>
+        <ol class="lista-num">
+          <li>Te registras con tus <b>datos personales</b> (eso desbloquea el contenido).</li>
+          <li>Repasa el <b>resumen teórico</b> y resuelve los <b>3 ejercicios + ticket</b>. La barra superior muestra tu avance.</li>
+          <li>Pulsa <b>«✅ Calificar mi guía»</b>: obtendrás tu nota al instante sobre 20 puntos.</li>
+          <li>Envía tu resultado al profesor con el botón verde de <b>WhatsApp</b>. La tarea de la libreta se revisa aparte, en la Clase 3.</li>
+        </ol>
+        <table class="mini-tabla">
+          <tbody><tr><th>Bloque</th><th>Puntos</th></tr>
+          <tr><td>🚗 Ej. 1 — Detectives del movimiento (5 preguntas)</td><td>5</td></tr>
+          <tr><td>🚌 Ej. 2 — El ómnibus en la carretera</td><td>7</td></tr>
+          <tr><td>🤝 Ej. 3 — El encuentro de dos móviles</td><td>7</td></tr>
+          <tr><td>🎫 Ticket de salida</td><td>1</td></tr>
+          <tr><td><b>Total</b></td><td><b>20</b></td></tr>
+        </tbody></table>
+
+        <h3>🧭 Conceptos fundamentales</h3>
+        <ul>
+          <li><b>Movimiento mecánico:</b> cambio de posición respecto a un <b>sistema de referencia</b> (origen + ejes + reloj). Es <b>relativo</b>: depende del observador.</li>
+          <li><b>Punto material:</b> idealización donde las dimensiones del cuerpo se desprecian por ser pequeñas frente a la distancia recorrida.</li>
+          <li><b>Trayectoria:</b> línea que une las posiciones sucesivas. Recta → rectilíneo; curva → curvilíneo.</li>
+          <li><b>Distancia recorrida (escalar)</b> ≠ <b>desplazamiento (vector)</b>. En MRU sin cambio de sentido coinciden en módulo.</li>
+          <li><b>Rapidez (escalar)</b> ≠ <b>velocidad (vector)</b>: la velocidad incluye dirección y sentido.</li>
+          <li><b>Δ (delta)</b> significa «variación»: Δx = x − x₀ (valor final menos valor inicial).</li>
+          <li>En el MRU, la <b>velocidad media</b> y la <b>velocidad instantánea</b> coinciden, porque la velocidad no cambia.</li>
+        </ul>
+
+        <h3>📐 ¿De dónde sale la ecuación de posición?</h3>
+        <p>Se obtiene <b>despejando</b> a partir de la ecuación de velocidad — es el mismo despeje algebraico que practicaste en clase:</p>
+        <div class="formula">v = Δx/Δt = (x − x₀)/t<br>① multiplicamos ambos lados por t → v·t = x − x₀<br>② pasamos x₀ sumando → <b>x = x₀ + v·t</b></div>
+
+        <h3>🧮 Tres notaciones, una misma ecuación</h3>
+        <table class="mini-tabla">
+          <tbody><tr><th>Notación</th><th>Significado</th></tr>
+          <tr><td><code>x = x₀ + v·t</code></td><td><b>Forma general:</b> posición en función del tiempo</td></tr>
+          <tr><td><code>xf = x₀ + v·t</code></td><td><b>Forma explícita:</b> posición final después de un tiempo t</td></tr>
+          <tr><td><code>x(t) = x₀ + v·t</code></td><td><b>Forma funcional:</b> la posición depende del tiempo</td></tr>
+        </tbody></table>
+        <p>Las tres dicen lo mismo: la posición del móvil <b>en el instante t</b> es la posición inicial más el avance v·t. La <b>explícita</b> resalta el resultado (xf); la <b>funcional</b> resalta que x depende de t (por eso es la que se usa para graficar y para tabular valores). Si x₀ = 0, la ecuación se reduce a x = v·t.</p>
+
+        <h3>🔁 Despejes útiles</h3>
+        <div class="formula">t = (xf − x₀)/v &nbsp;·&nbsp; x₀ = xf − v·t &nbsp;·&nbsp; v = (xf − x₀)/t</div>
+
+        <h3>🔄 Conversión km/h ↔ m/s (¿por qué 3,6?)</h3>
+        <div class="formula">1 km = 1000 m · 1 h = 3600 s<br>1 km/h = 1000 m / 3600 s = 1/3,6 m/s<br>km/h → m/s: ÷ 3,6 (90 km/h = 25 m/s)<br>m/s → km/h: × 3,6 (15 m/s = 54 km/h)</div>
+
+        <h3>📈 Gráficas</h3>
+        <ul>
+          <li><b>x-t:</b> recta inclinada; la <b>pendiente</b> (cuánto sube la posición por cada segundo) es la velocidad. Si v &lt; 0, la recta <b>desciende</b>.</li>
+          <li><b>v-t:</b> recta <b>horizontal</b> a la altura de v; el <b>área</b> bajo la recta (v·t) equivale a la distancia recorrida.</li>
+          <li>Para graficar x-t: escribe la ecuación en <b>forma funcional</b>, haz una <b>tabla de valores</b>, marca los puntos y únelos con regla.</li>
+        </ul>
+        <div class="caja-ejemplo">⚠️ <b>¿Velocidad negativa?</b> No es «ir despacio»: significa que el móvil avanza en el <b>sentido contrario</b> al positivo del eje elegido. Lo usarás en la tarea de la libreta.</div>
+        <div class="caja-tip">💡 Puedes abrir esta ayuda cuantas veces quieras: <b>no afecta tu nota</b>.</div>
+      </section>
+
+      <section class="tab-panel" id="tab-ej1">
+        <h3>🕵️ Estrategia del detective del movimiento</h3>
+        <p>Para el MRU pregúntate siempre: <b>«¿va en línea recta y a ritmo fijo?»</b> — y recuerda que «ritmo fijo» incluye <b>hacia dónde</b>.</p>
+        <table class="mini-tabla">
+          <tbody><tr><th>Pregunta</th><th>Pista</th></tr>
+          <tr><td><b>P1</b> ¿Qué es MRU?</td><td>Une las dos palabras del nombre: <b>rectilíneo</b> (recta) + <b>uniforme</b> (v constante).</td></tr>
+          <tr><td><b>P2</b> ¿Qué es x₀?</td><td>Es la posición <b>inicial</b>: donde está el móvil cuando t = 0, antes de empezar a contar. No la confundas con xf (la del instante t).</td></tr>
+          <tr><td><b>P3</b> Pendiente de x-t</td><td>En x = x₀ + v·t, lo que multiplica a t es <b>v</b>: la inclinación de la recta mide la velocidad.</td></tr>
+          <tr><td><b>P4</b> Tres notaciones</td><td>x, xf y x(t) son <b>la misma posición</b> escrita de tres maneras: general, explícita y funcional. Cambia la ropa, no la persona.</td></tr>
+          <tr><td><b>P5</b> Distancias y tiempos</td><td>Esa es justamente la definición de «uniforme»: mismo avance cada segundo.</td></tr>
+        </tbody></table>
+        <div class="caja-tip">💡 <b>Trampa frecuente:</b> «rapidez constante» NO garantiza MRU. Un carro en una <b>curva</b> a rapidez fija cambia de dirección → su velocidad cambia → no es MRU.</div>
+      </section>
+
+      <section class="tab-panel" id="tab-ej2">
+        <h3>🚌 Problema directo con la ecuación d = v · t</h3>
+        <ol class="lista-num">
+          <li><b>Convierte las unidades</b> al Sistema Internacional: km/h ÷ 3,6 → m/s.</li>
+          <li><b>Elige la ecuación</b> y su notación: con x₀ = 0, las tres formas se reducen a x = v·t, o sea d = v·t.</li>
+          <li><b>Sustituye y calcula</b> con las unidades en cada número.</li>
+          <li><b>Interpreta:</b> ¿qué forma tienen las gráficas v-t y x-t?</li>
+        </ol>
+        <div class="caja-ejemplo">📘 <b>Ejemplo parecido (no es el del ejercicio):</b> una motocicleta va a <b>54 km/h</b> durante <b>12 s</b>.<br>
+        Conversión: v = 54 ÷ 3,6 = <b>15 m/s</b><br>
+        Distancia: d = 15 m/s · 12 s = <b>180 m</b> (= 0,18 km)<br>
+        Aplica el mismo método con los datos del ómnibus.</div>
+        <h3>📈 Las gráficas de este móvil</h3>
+        <ul>
+          <li><b>v-t:</b> línea <b>horizontal</b> a la altura de la velocidad (en el dibujo del apartado A, una recta plana).</li>
+          <li><b>x-t:</b> recta <b>inclinada que sube</b>, porque cada segundo la posición aumenta lo mismo.</li>
+          <li><b>Proporcionalidad:</b> doble tiempo → doble distancia; por eso el apartado F se responde sin recalcular todo.</li>
+        </ul>
+        <div class="caja-tip">💡 En el apartado D escribe primero la fórmula, luego sustituye con unidades: <i>d = 25 m/s · 20 s</i>. Y recuerda: 1000 m = 1 km para el segundo espacio.</div>
+      </section>
+
+      <section class="tab-panel" id="tab-ej3">
+        <h3>🤝 Método del encuentro (paso a paso)</h3>
+        <ol class="lista-num">
+          <li><b>Define el sistema de referencia:</b> origen en A, eje +x de A hacia B. Así x₀ del carro = 0 y x₀ del camión = 150 km.</li>
+          <li><b>Escribe las ecuaciones de posición</b> (usa la forma funcional): el carro se aleja, x_A = 80t; el camión <b>parte de 150 y se acerca</b>, por eso su posición <b>disminuye</b>: x_B = 150 − 70t.</li>
+          <li><b>Condición de encuentro:</b> en el cruce, los dos están en el <b>mismo lugar al mismo tiempo</b> → x_A(t) = x_B(t).</li>
+          <li><b>Iguala y despeja t.</b></li>
+          <li><b>Calcula la posición</b> sustituyendo el tiempo hallado en cualquiera de las dos ecuaciones, y la distancia desde B restando.</li>
+        </ol>
+        <div class="caja-ejemplo">📘 <b>Ejemplo parecido (no es el del ejercicio):</b> pueblos separados <b>90 km</b>; carro desde A a <b>50 km/h</b>, camión desde B a <b>40 km/h</b>.<br>
+        50t = 90 − 40t → 90t = 90 → <b>t = 1,0 h</b><br>
+        x = 50 · 1 = <b>50 km desde A</b> (y 90 − 50 = 40 km desde B).<br>
+        Aplica el mismo método con los datos del problema.</div>
+        <h3>📈 ¿Cómo se ve en la gráfica x-t?</h3>
+        <p>Dos <b>rectas</b>: la del carro sube desde el origen; la del camión <b>baja</b> desde 150 km (velocidad negativa respecto al eje elegido). El <b>punto de corte</b> de las dos rectas es el encuentro: su coordenada en el eje t da el tiempo y en el eje x la posición.</p>
+        <div class="caja-tip">💡 Comprobación rápida del apartado D: si en cada hora se acercan 80 + 70 = 150 km, ¿cuánto tiempo necesitan para cubrir los 150 km que los separa? ✔ Úsalo para verificar tu despeje.</div>
+      </section>
+
+      <section class="tab-panel" id="tab-ticket">
+        <h3>🎫 La idea que se evalúa</h3>
+        <p>El velocímetro mide el <b>módulo</b> de la velocidad (la rapidez, que es escalar). Pero la <b>velocidad</b> es un <b>vector</b>: también tiene dirección y sentido.</p>
+        <ul>
+          <li>Si el carro mantiene la rapidez <b>en línea recta y sin cambiar de sentido</b> → sí es MRU.</li>
+          <li>Si mantiene la rapidez pero <b>gira en una curva</b> → cambia la dirección → la velocidad cambia → <b>no es MRU</b>, aunque la aguja no se mueva.</li>
+        </ul>
+        <div class="caja-tip">💡 Esqueleto sugerido: <i>«No, porque el velocímetro solo mide el ______ (módulo); para MRU también deben ser constantes la ______ y el ______ del vector velocidad»</i>.</div>
+      </section>
+
+      <section class="tab-panel" id="tab-tarea">
+        <h3>📚 Tarea 1 · Gráfica x-t con velocidad negativa (pág. 32, Ej. 5)</h3>
+        <ol class="lista-num">
+          <li><b>Escribe la ecuación</b> del móvil en forma funcional, sustituyendo x₀ y v en x(t) = x₀ + v·t.</li>
+          <li><b>Haz una tabla de valores</b> dando a t los valores 0, 1, 2, … hasta 8 s y calculando x en cada uno.</li>
+          <li><b>Dibuja los ejes</b> (x vertical, t horizontal), marca los puntos y únelos <b>con regla</b>: debe quedarte una recta.</li>
+          <li><b>Interpreta el signo negativo:</b> la velocidad negativa indica que el móvil se mueve en el <b>sentido contrario</b> al positivo del eje; por eso la recta <b>desciende</b> y la posición disminuye con el tiempo.</li>
+        </ol>
+        <div class="caja-ejemplo">📘 <b>Ejemplo parecido (con otros datos):</b> x₀ = 12 m y v = −3,0 m/s.<br>
+        x(t) = 12 − 3t → t: 0, 1, 2, 3, 4 s → x: 12, 9, 6, 3, 0 m.<br>
+        La recta baja y llega a x = 0 en t = 4 s: el móvil se acerca al origen. Construye tú la tabla del ejercicio dictado con sus datos.</div>
+        <h3>✅ Tarea 2 · Revisión de la Clase 1 (Avión y viento)</h3>
+        <p>Repasa tu libreta: es un problema de <b>adición de vectores perpendiculares</b>. Verifica que tu gráfico tenga el vector del avión, el del viento y la resultante punta-cola; comprueba el módulo con Pitágoras y el ángulo con la tangente. Se revisará con la rúbrica que aparece en la tarjeta de tarea (20 / 15 / 10 puntos).</p>
+        <div class="caja-tip">💡 Recogida: la libreta se revisa en la <b>Clase 3</b>. No escribas estas respuestas en la app: son para tu libreta.</div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+'use strict';
+/* ═══ CONFIGURACIÓN ═══
+   Teléfono del profesor en formato internacional: 53 (Cuba) + 56287815 */
+const PROFESOR={nombre:'Isniel Portela',telefono:'5356287815'};
+const PUNTOS_MAX=20;
+const API='https://api.github.com';
+const LS_KEY='guiaFisicaMRU_estudiante';
+let enviado=false,puntaje=0,porEj=null,mensajeFinal='',registrado=false,modoEdicion=false;
+const dibujo={e2a:false,e3a:false};
+const ejNombres={'1':'Ej. 1 · Detectives del movimiento','2':'Ej. 2 · El ómnibus en la carretera','3':'Ej. 3 · El encuentro de dos móviles','4':'Ticket de salida'};
+
+const $=id=>document.getElementById(id);
+ $('fechaLogin').textContent='📅 '+new Date().toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+
+/* ═══ UTILIDADES ═══ */
+function normalizar(s){return (s==null?'':String(s)).trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');}
+function numeroOk(v,esp,tol){const n=parseFloat(String(v).trim().replace(',','.'));return !isNaN(n)&&Math.abs(n-esp)<=tol;}
+function fmt(n){return (Math.round(n*100)/100).toString().replace('.',',');}
+function letra(i){return 'abcd'[i]||'?';}
+function truncar(s,max){s=(s||'').replace(/\s+/g,' ').trim();return s.length>max?s.slice(0,max-1)+'…':s;}
+function copiarTexto(t){const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');}catch(_){}ta.remove();}
+
+/* ═══════════════════════════════════════
+   VISTAS · REGISTRO COMO PUERTA DE ENTRADA
+   ═══════════════════════════════════════ */
+const CAMPOS=['nombre','apellidos','grupo','celular'];
+const ETIQUETAS={nombre:'el nombre',apellidos:'los apellidos',grupo:'el grupo',celular:'el número de celular'};
+
+function validarDatos(){
+  let ok=true,faltan=[];
+  CAMPOS.forEach(id=>{
+    const el=$(id),v=el.value.trim();
+    let valido=v.length>=2;
+    if(id==='celular')valido=v.replace(/\D/g,'').length>=8;
+    el.classList.toggle('campo-error',!valido);
+    if(!valido){ok=false;faltan.push(ETIQUETAS[id]);}
+  });
+  $('errorDatos').textContent=ok?'':'⚠ Revisa: '+faltan.join(', ')+'.';
+  return ok;
+}
+CAMPOS.forEach(id=>$(id).addEventListener('input',()=>{$(id).classList.remove('campo-error');$('errorDatos').textContent='';}));
+
+function iniciarGuia(){
+  registrado=true;
+  const d={nombre:$('nombre').value.trim(),apellidos:$('apellidos').value.trim(),grupo:$('grupo').value.trim(),celular:$('celular').value.trim()};
+  try{localStorage.setItem(LS_KEY,JSON.stringify(d));}catch(_){}
+  $('chipNombre').textContent=d.nombre+' '+d.apellidos.split(' ')[0]+' · '+d.grupo;
+  $('chipEst').classList.remove('oculto');
+  $('vistaLogin').classList.add('oculto');
+  $('panelWrap').classList.add('oculto');
+  $('vistaGuia').classList.remove('oculto');
+  $('fabDuda').classList.remove('oculto');
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(modoEdicion){modoEdicion=false;$('btnComenzar').textContent='🔓 Desbloquear la guía';}
+}
+function volverAlRegistro(){
+  modoEdicion=true;
+  $('btnComenzar').textContent='💾 Guardar cambios y volver';
+  $('avisoSesion').classList.add('oculto');
+  $('vistaGuia').classList.add('oculto');
+  $('fabDuda').classList.add('oculto');
+  $('modalDuda').classList.remove('abierta');
+  document.body.style.overflow='';
+  $('vistaLogin').classList.remove('oculto');
+  window.scrollTo({top:0,behavior:'smooth'});
+  $('nombre').focus();
+}
+ $('formLogin').addEventListener('submit',e=>{e.preventDefault();if(validarDatos())iniciarGuia();else{$('datos').classList.add('sacudir');setTimeout(()=>$('datos').classList.remove('sacudir'),450);}});
+ $('btnCambiarDatos').addEventListener('click',volverAlRegistro);
+ $('btnContinuarSesion').addEventListener('click',()=>{if(validarDatos())iniciarGuia();});
+
+/* Restaurar sesión anterior (precarga, nunca salta el registro) */
+try{
+  const g=JSON.parse(localStorage.getItem(LS_KEY)||'null');
+  if(g&&g.nombre){
+    $('nombre').value=g.nombre||'';$('apellidos').value=g.apellidos||'';$('grupo').value=g.grupo||'';$('celular').value=g.celular||'';
+    $('avisoTxt').textContent='👋 ¡Hola de nuevo, '+g.nombre+'! Tus datos ya están cargados.';
+    $('avisoSesion').classList.remove('oculto');
+  }
+}catch(_){}
+
+/* ═══ PANEL DEL PROFESOR · mostrar/ocultar ═══ */
+document.querySelectorAll('.link-panel').forEach(l=>l.addEventListener('click',()=>{
+  const w=$('panelWrap');w.classList.toggle('oculto');
+  if(!w.classList.contains('oculto'))w.scrollIntoView({behavior:'smooth'});
+}));
+
+/* ═══ LIENZOS DE DIBUJO (Ej. 2A: v-t · Ej. 3A: x-t) ═══ */
+function dibujaEjes(c,xLabel,yLabel){
+  const x=c.getContext('2d');
+  x.clearRect(0,0,c.width,c.height);
+  x.strokeStyle='#e2e8f0';x.lineWidth=1;
+  for(let gx=30;gx<c.width;gx+=30){x.beginPath();x.moveTo(gx,0);x.lineTo(gx,c.height);x.stroke();}
+  for(let gy=30;gy<c.height;gy+=30){x.beginPath();x.moveTo(0,gy);x.lineTo(c.width,gy);x.stroke();}
+  const ox=50,oy=c.height-50;
+  x.strokeStyle='#94a3b8';x.lineWidth=2;
+  x.beginPath();x.moveTo(ox,oy);x.lineTo(c.width-24,oy);x.stroke();
+  x.beginPath();x.moveTo(ox,oy);x.lineTo(ox,28);x.stroke();
+  x.fillStyle='#94a3b8';
+  x.beginPath();x.moveTo(c.width-18,oy);x.lineTo(c.width-32,oy-7);x.lineTo(c.width-32,oy+7);x.closePath();x.fill();
+  x.beginPath();x.moveTo(ox,20);x.lineTo(ox-7,34);x.lineTo(ox+7,34);x.closePath();x.fill();
+  x.font='600 14px Poppins,sans-serif';x.fillStyle='#64748b';
+  x.fillText(xLabel,c.width-110,oy+30);
+  x.fillText(yLabel,ox+8,30);
+}
+function initLienzo(c,key){
+  const x=c.getContext('2d');let dib=false,prev={x:0,y:0};
+  const pos=e=>{const r=c.getBoundingClientRect();return{x:(e.clientX-r.left)*(c.width/r.width),y:(e.clientY-r.top)*(c.height/r.height)};};
+  c.addEventListener('pointerdown',e=>{if(enviado)return;dib=true;dibujo[key]=true;prev=pos(e);try{c.setPointerCapture(e.pointerId);}catch(_){}});
+  c.addEventListener('pointermove',e=>{if(!dib)return;const p=pos(e);x.strokeStyle='#4f46e5';x.lineWidth=3.5;x.lineCap='round';x.lineJoin='round';x.beginPath();x.moveTo(prev.x,prev.y);x.lineTo(p.x,p.y);x.stroke();prev=p;});
+  ['pointerup','pointercancel'].forEach(ev=>c.addEventListener(ev,()=>dib=false));
+}
+dibujaEjes($('lienzoEj2'),'t (s)','v (m/s)');
+dibujaEjes($('lienzoEj3'),'t (h)','x (km)');
+initLienzo($('lienzoEj2'),'e2a');
+initLienzo($('lienzoEj3'),'e3a');
+ $('btnBorrarEj2').addEventListener('click',()=>{if(!enviado){dibujaEjes($('lienzoEj2'),'t (s)','v (m/s)');dibujo.e2a=false;}});
+ $('btnBorrarEj3').addEventListener('click',()=>{if(!enviado){dibujaEjes($('lienzoEj3'),'t (h)','x (km)');dibujo.e3a=false;}});
+
+/* ═══ PROGRESO ═══ */
+function respondido(el){
+  if(el.classList.contains('mc'))return !!el.querySelector('input:checked');
+  if(el.tagName==='SELECT')return el.value!=='';
+  return el.value.trim()!=='';
+}
+function progreso(){
+  const todos=document.querySelectorAll('#cuestionario [data-pts]');let n=0;
+  todos.forEach(el=>{if(respondido(el))n++;});
+  $('progresoFill').style.width=(todos.length?Math.round(n/todos.length*100):0)+'%';
+  $('progresoTexto').textContent=n+' / '+todos.length+' respondidas';
+}
+ $('cuestionario').addEventListener('input',progreso);
+ $('cuestionario').addEventListener('change',progreso);
+
+/* ═══ AYUDA FLOTANTE ═══ */
+const modal=$('modalDuda');
+let tabActual='general';
+function activarTab(id){
+  tabActual=id;
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('activa',b.dataset.tab===id));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.toggle('activa',p.id==='tab-'+id));
+  const cuerpo=modal.querySelector('.modal-cuerpo');if(cuerpo)cuerpo.scrollTop=0;
+}
+function abrirModal(tab){activarTab(tab||tabActual);modal.classList.add('abierta');document.body.style.overflow='hidden';}
+function cerrarModal(){modal.classList.remove('abierta');document.body.style.overflow='';}
+ $('fabDuda').addEventListener('click',()=>abrirModal(tabActual));
+ $('btnCerrarModal').addEventListener('click',cerrarModal);
+modal.addEventListener('click',e=>{if(e.target===modal)cerrarModal();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('abierta'))cerrarModal();});
+document.querySelectorAll('.tab-btn').forEach(b=>b.addEventListener('click',()=>activarTab(b.dataset.tab)));
+document.querySelectorAll('.btn-ayuda').forEach(b=>b.addEventListener('click',()=>abrirModal(b.dataset.tab)));
+
+const nombresSec={general:'duda',ej1:'Ej. 1',ej2:'Ej. 2',ej3:'Ej. 3',ticket:'Ticket',tarea:'Tarea'};
+if('IntersectionObserver' in window){
+  const obs=new IntersectionObserver(entradas=>{
+    entradas.forEach(en=>{
+      if(en.isIntersecting){
+        tabActual=en.target.dataset.ayuda;
+        $('fabTxt').textContent=nombresSec[tabActual]||'duda';
+      }
+    });
+  },{rootMargin:'-40% 0px -40% 0px'});
+  document.querySelectorAll('[data-ayuda]').forEach(s=>obs.observe(s));
+}
+
+/* ═══ CALIFICACIÓN AUTOMÁTICA ═══ */
+function textoOpcion(caja,val){
+  const inp=caja.querySelector('input[value="'+val+'"]');
+  if(!inp)return val;
+  const t=inp.closest('label').querySelector('.op-texto');
+  return t?t.textContent.trim():val;
+}
+ $('btnCalificar').addEventListener('click',()=>{
+  if(!registrado){volverAlRegistro();return;}
+  calificar();
+});
+function calificar(){
+  if(enviado)return;
+  if(!validarDatos()){alert('⚠ Revisa tus datos personales en el registro.');return;}
+  const sin=[...document.querySelectorAll('#cuestionario [data-pts]')].filter(el=>!respondido(el));
+  if(sin.length&&!confirm('Tienes '+sin.length+' respuesta(s) sin completar.\n\n¿Calificar de todos modos? (Las vacías cuentan como incorrectas)')){sin[0].scrollIntoView({behavior:'smooth',block:'center'});return;}
+
+  enviado=true;puntaje=0;
+  porEj={'1':{obt:0,max:0},'2':{obt:0,max:0},'3':{obt:0,max:0},'4':{obt:0,max:0}};
+  const rec=[];
+  const fb=(ok,max,corr,sinR)=>{const d=document.createElement('div');d.className='feedback '+(ok?'fb-ok':'fb-mal');d.innerHTML=ok?('✔ Correcto · +'+fmt(max)+' pto'):('✘ '+(sinR?'Sin responder':'Incorrecto')+' · Correcta: <b>'+corr+'</b>');return d;};
+
+  document.querySelectorAll('#cuestionario [data-pts]').forEach(el=>{
+    const max=parseFloat(el.dataset.pts);
+    let ok=false,resp='(sin responder)',corr='',corto='—';
+    if(el.classList.contains('mc')){
+      const s=el.querySelector('input:checked');
+      corr=textoOpcion(el,el.dataset.correcta);
+      if(s){resp=textoOpcion(el,s.value);ok=s.value===el.dataset.correcta;corto=letra(+s.value);}
+      el.appendChild(fb(ok,max,corr,!s));
+    }else if(el.tagName==='TEXTAREA'){
+      resp=el.value.trim()||'(sin responder)';corto=resp;corr=el.dataset.solucion||'';
+      const claves=(el.dataset.claves||'').split(',').map(normalizar);
+      ok=claves.some(k=>normalizar(resp).includes(k));
+      el.insertAdjacentElement('afterend',fb(ok,max,corr,el.value.trim()===''));
+    }else{
+      resp=el.value.trim()||'(sin responder)';corto=resp;corr=el.dataset.ejemplar||'';
+      ok=numeroOk(el.value,parseFloat(el.dataset.num),parseFloat(el.dataset.tol||'0.05'));
+      el.insertAdjacentElement('afterend',fb(ok,max,corr,el.value.trim()===''));
+    }
+    porEj[el.dataset.ej].max+=max;
+    if(ok){puntaje+=max;porEj[el.dataset.ej].obt+=max;}
+    el.classList.add(ok?'it-ok':'it-mal');
+    rec.push({ej:el.dataset.ej,tag:el.dataset.tag,ok:ok,corto:corto,resp:resp});
+  });
+
+  document.querySelectorAll('#cuestionario input, #cuestionario textarea').forEach(i=>i.disabled=true);
+  $('btnCalificar').disabled=true;$('btnCalificar').textContent='✔ Guía calificada';
+  mensajeFinal=construirMensaje(rec);
+  mostrarResultados();
+}
+
+/* ═══ MENSAJE DE WHATSAPP ═══ */
+function construirMensaje(rec){
+  const ahora=new Date();
+  const pct=Math.round(puntaje/PUNTOS_MAX*100);
+  const nivel=puntaje>=18?'Excelente 🏆':(puntaje>=14?'Muy bien 👏':(puntaje>=10?'Aprobado 💪':'Necesita repasar 📚'));
+  const por={};rec.forEach(r=>{(por[r.ej]=por[r.ej]||[]).push(r);});
+  const buscar=(ej,tag)=>por[ej].find(r=>r.tag===tag);
+  const conEst=r=>r.tag+') '+r.corto+(r.ok?' ✔':' ✘');
+  let m='';
+  m+='🚌 *GUÍA DE FÍSICA 10.° — CLASE 2*\n— Cinemática: Movimiento Rectilíneo Uniforme (MRU)\n';
+  m+='━━━━━━━━━━━━━━━━━\n👤 *DATOS DEL ESTUDIANTE*\n';
+  m+='• Nombre: '+$('nombre').value.trim()+'\n';
+  m+='• Apellidos: '+$('apellidos').value.trim()+'\n';
+  m+='• Grupo: '+$('grupo').value.trim()+'\n';
+  m+='• Celular: '+$('celular').value.trim()+'\n';
+  m+='• Fecha: '+ahora.toLocaleDateString('es-ES')+' · '+ahora.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'})+'\n';
+  m+='━━━━━━━━━━━━━━━━━\n📊 *CALIFICACIÓN FINAL: '+fmt(puntaje)+' / '+PUNTOS_MAX+' ('+pct+'%) — '+nivel+'*\n';
+  m+='━━━━━━━━━━━━━━━━━\n📌 *PUNTAJE POR EJERCICIO*\n';
+  Object.keys(ejNombres).forEach(k=>{m+='• '+ejNombres[k]+': '+fmt(porEj[k].obt)+' / '+porEj[k].max+'\n';});
+  m+='━━━━━━━━━━━━━━━━━\n✍️ *RESPUESTAS*\n';
+  m+='• Ej.1: '+por['1'].map(conEst).join(' | ')+'\n';
+  m+='• Ej.2: '+['B','C','E','F'].map(t=>conEst(buscar('2',t))).join(' | ')+'\n';
+  m+='   D) '+por['2'].filter(r=>r.tag.charAt(0)==='D').map(r=>r.corto).join(' · ')+'\n';
+  m+='   Explicación G: "'+truncar(buscar('2','G').resp,200)+'"\n';
+  m+='• Ej.3: '+['C','G','H'].map(t=>conEst(buscar('3',t))).join(' | ')+'\n';
+  m+='   B) '+por['3'].filter(r=>r.tag.charAt(0)==='B').map(r=>r.corto).join(' · ')+'\n';
+  m+='   D) '+por['3'].filter(r=>r.tag.charAt(0)==='D').map(r=>r.corto).join(' · ')+'\n';
+  m+='   E) xf = '+buscar('3','E').corto+' km desde A | F) '+buscar('3','F').corto+' km desde B\n';
+  m+='• Ticket de salida: "'+truncar(buscar('4','Ticket').resp,200)+'"\n';
+  m+='• Gráfica v-t (Ej.2-A): '+(dibujo.e2a?'realizada ✔':'no realizada')+' (no evaluable automáticamente)\n';
+  m+='• Gráficas x-t (Ej.3-A): '+(dibujo.e3a?'realizadas ✔':'no realizadas')+' (no evaluables automáticamente)\n';
+  m+='━━━━━━━━━━━━━━━━━\n_Mensaje generado automáticamente por la Guía Interactiva de Física 10.° — Clase 2 (MRU)_';
+  return m;
+}
+
+/* ═══ RESULTADOS ═══ */
+function mostrarResultados(){
+  const pct=Math.round(puntaje/PUNTOS_MAX*100);
+  $('scoreNum').textContent=fmt(puntaje);
+  $('scoreMensaje').textContent=puntaje>=18?'¡Excelente! 🏆':puntaje>=14?'¡Muy bien! 👏':puntaje>=10?'Aprobado 💪':'A repasar 📚';
+  $('scorePct').textContent=pct+'% de acierto · '+new Date().toLocaleString('es-ES');
+  let filas='<tr><th>Ejercicio</th><th>Puntos</th></tr>';
+  Object.keys(ejNombres).forEach(k=>{filas+='<tr><td>'+ejNombres[k]+'</td><td><b>'+fmt(porEj[k].obt)+' / '+porEj[k].max+'</b></td></tr>';});
+  filas+='<tr class="fila-total"><td>TOTAL</td><td>'+fmt(puntaje)+' / 20</td></tr>';
+  $('tablaDetalle').innerHTML=filas;
+  $('btnWhatsApp').href='https://wa.me/'+PROFESOR.telefono+'?text='+encodeURIComponent(mensajeFinal);
+  $('resultados').classList.remove('oculto');
+  $('envio').classList.add('oculto');
+  $('resultados').scrollIntoView({behavior:'smooth'});
+}
+
+ $('btnCopiar').addEventListener('click',function(){
+  const hecho=()=>{this.textContent='✅ Copiado';const b=this;setTimeout(()=>b.textContent='📋 Copiar resumen',2000);};
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(mensajeFinal).then(hecho).catch(()=>{copiarTexto(mensajeFinal);hecho();});}
+  else{copiarTexto(mensajeFinal);hecho();}
+});
+ $('btnReiniciar').addEventListener('click',()=>{
+  if(confirm('¿Reiniciar la guía? Se borrarán todas las respuestas y volverás al registro.')){try{localStorage.removeItem(LS_KEY);}catch(_){}location.reload();}
+});
+
+/* ═══════════════════════════════════════════════
+   PANEL DEL PROFESOR · PUBLICAR EN GITHUB PAGES
+   ═══════════════════════════════════════════════ */
+function ghHeaders(t){return {'Accept':'application/vnd.github+json','Authorization':'Bearer '+t,'Content-Type':'application/json','X-GitHub-Api-Version':'2022-11-28'};}
+function ghLog(txt,tipo){
+  const l=$('ghLog');l.classList.remove('oculto');
+  const d=document.createElement('div');d.className='gh-line '+(tipo||'');d.textContent=txt;
+  l.appendChild(d);l.scrollTop=l.scrollHeight;
+}
+async function detalleError(r){
+  try{const j=await r.json();return j.message+(j.errors?' — '+JSON.stringify(j.errors):'');}catch(_){return 'HTTP '+r.status;}
+}
+function aBase64(str){
+  const bytes=new TextEncoder().encode(str);let bin='';
+  for(let i=0;i<bytes.length;i++)bin+=String.fromCharCode(bytes[i]);
+  return btoa(bin);
+}
+
+/* Copia LIMPIA para publicar: sin respuestas, sin datos, con la puerta de registro activa. */
+function htmlLimpio(){
+  const c=document.documentElement.cloneNode(true);
+  c.querySelectorAll('.feedback').forEach(e=>e.remove());
+  c.querySelectorAll('.it-ok,.it-mal,.campo-error').forEach(e=>e.classList.remove('it-ok','it-mal','campo-error'));
+  c.querySelectorAll('[disabled]').forEach(e=>e.removeAttribute('disabled'));
+  c.querySelectorAll('input[type=radio]').forEach(i=>i.removeAttribute('checked'));
+  c.querySelectorAll('input[type=text],input[type=tel],input[type=password],textarea').forEach(i=>i.removeAttribute('value'));
+  ['nombre','apellidos','grupo','celular'].forEach(id=>{const i=c.querySelector('#'+id);if(i)i.value='';});
+  c.querySelectorAll('#cuestionario textarea').forEach(t=>t.value='');
+  const r=c.querySelector('#resultados');
+  if(r){r.classList.add('oculto');
+    const s=r.querySelector('#scoreNum');if(s)s.textContent='—';
+    const sm=r.querySelector('#scoreMensaje');if(sm)sm.textContent='';
+    const sp=r.querySelector('#scorePct');if(sp)sp.textContent='';
+    const tb=r.querySelector('#tablaDetalle');if(tb)tb.innerHTML='';
+    const wa=r.querySelector('#btnWhatsApp');if(wa)wa.setAttribute('href','#');
+  }
+  const ev=c.querySelector('#envio');if(ev)ev.classList.remove('oculto');
+  const bc=c.querySelector('#btnCalificar');if(bc){bc.disabled=false;bc.textContent='✅ Calificar mi guía';}
+  const vl=c.querySelector('#vistaLogin');if(vl)vl.classList.remove('oculto');
+  const vg=c.querySelector('#vistaGuia');if(vg)vg.classList.add('oculto');
+  const fab=c.querySelector('#fabDuda');if(fab)fab.classList.add('oculto');
+  const chip=c.querySelector('#chipEst');if(chip)chip.classList.add('oculto');
+  const avi=c.querySelector('#avisoSesion');if(avi)avi.classList.add('oculto');
+  const err=c.querySelector('#errorDatos');if(err)err.textContent='';
+  const pw=c.querySelector('#panelWrap');if(pw)pw.classList.add('oculto');
+  const pf=c.querySelector('#progresoFill');if(pf)pf.setAttribute('style','width:0');
+  const pt=c.querySelector('#progresoTexto');if(pt)pt.textContent='0 / 22 respondidas';
+  const lg=c.querySelector('#ghLog');if(lg){lg.innerHTML='';lg.classList.add('oculto');}
+  const gr=c.querySelector('#ghResultado');if(gr){gr.innerHTML='';gr.classList.add('oculto');}
+  const md=c.querySelector('#modalDuda');if(md)md.classList.remove('abierta');
+  c.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('activa',i===0));
+  c.querySelectorAll('.tab-panel').forEach((p,i)=>p.classList.toggle('activa',i===0));
+  const ft=c.querySelector('#fabTxt');if(ft)ft.textContent='duda';
+  const bd=c.querySelector('body');if(bd)bd.removeAttribute('style');
+  return '<!DOCTYPE html>\n<!--GUIA-FISICA-MRU-FUENTE-->\n'+c.outerHTML;
+}
+async function obtenerFuentePropia(){
+  try{
+    const r=await fetch(location.href,{cache:'no-store'});
+    if(r.ok){
+      const t=await r.text();
+      if(t.indexOf('GUIA-FISICA-MRU-FUENTE')!==-1)return t;
+    }
+  }catch(_){}
+  return htmlLimpio();
+}
+
+ $('btnGhVer').addEventListener('click',()=>{const t=$('ghToken');t.type=t.type==='password'?'text':'password';});
+
+ $('btnGhProbar').addEventListener('click',async()=>{
+  const token=$('ghToken').value.trim();
+  if(!token){ghLog('⚠ Escribe tu token primero.','err');return;}
+  if(token.indexOf('ghp_')!==0&&token.indexOf('github_pat_')!==0)ghLog('ℹ Aviso: los tokens clásicos empiezan por "ghp_". Verifica que copiaste el token completo.','info');
+  ghLog('🔎 Verificando token con GitHub…');
+  try{
+    const r=await fetch(API+'/user',{headers:ghHeaders(token)});
+    if(r.status===401){ghLog('✖ Token inválido o expirado (401).','err');return;}
+    if(!r.ok){ghLog('✖ Error '+r.status+': '+await detalleError(r),'err');return;}
+    const yo=await r.json();
+    ghLog('✔ Token válido — conectado como @'+yo.login+'. Con el scope "repo" puedes publicar.','ok');
+  }catch(e){ghLog('✖ Sin conexión con GitHub: '+(e.message||e),'err');}
+});
+
+ $('btnGhPublicar').addEventListener('click',async()=>{
+  const btn=$('btnGhPublicar');
+  const user=$('ghUser').value.trim(),repo=$('ghRepo').value.trim(),token=$('ghToken').value.trim();
+  const crear=$('ghCrear').checked,msg=$('ghMsg').value.trim()||'Publicación de la guía MRU (Clase 2)';
+  if(!user||!repo||!token){ghLog('⚠ Completa usuario, repositorio y token.','err');return;}
+  if(!/^[A-Za-z0-9._-]+$/.test(repo)){ghLog('⚠ Nombre de repositorio no válido (usa letras, números, guiones, puntos o guiones bajos).','err');return;}
+  btn.disabled=true;
+  try{
+    ghLog('🔎 1/5 Verificando token…');
+    let r=await fetch(API+'/user',{headers:ghHeaders(token)});
+    if(r.status===401)throw new Error('Token rechazado (401). Revisa que sea clásico, vigente y con scope "repo".');
+    if(!r.ok)throw new Error('No se pudo verificar el token: '+await detalleError(r));
+    const yo=await r.json();
+    const owner=yo.login;
+    ghLog('✔ Token válido — publicando en la cuenta @'+owner+(owner.toLowerCase()!==user.toLowerCase()?' (escribiste "'+user+'", se usa la del token).':'.'));
+    if(crear){
+      ghLog('📦 2/5 Creando/verificando el repositorio "'+repo+'"…');
+      r=await fetch(API+'/user/repos',{method:'POST',headers:ghHeaders(token),body:JSON.stringify({name:repo,description:'Guía interactiva de Física 10.° — Clase 2: MRU (3er Perfeccionamiento)',private:false,auto_init:true})});
+      if(r.status===201)ghLog('✔ Repositorio creado.','ok');
+      else if(r.status===422)ghLog('ℹ El repositorio ya existe: se actualizará.','info');
+      else throw new Error('No se pudo crear el repositorio: '+await detalleError(r));
+    }else{
+      ghLog('📦 2/5 Usando el repositorio existente (creación automática desactivada).','info');
+    }
+    ghLog('🔎 3/5 Preparando index.html…');
+    let sha=null;
+    r=await fetch(API+'/repos/'+owner+'/'+repo+'/contents/index.html?ref=main',{headers:ghHeaders(token)});
+    if(r.status===200){sha=(await r.json()).sha;ghLog('ℹ index.html ya existe: se creará una nueva versión.','info');}
+    else if(r.status===404){ghLog('ℹ index.html no existe: primera publicación.','info');}
+    else throw new Error('No se pudo acceder al repositorio ('+r.status+'). ¿Existe y el token tiene acceso?');
+    const fuente=await obtenerFuentePropia();
+    r=await fetch(API+'/repos/'+owner+'/'+repo+'/contents/index.html',{
+      method:'PUT',headers:ghHeaders(token),
+      body:JSON.stringify({message:msg,content:aBase64(fuente),branch:'main',sha:(sha||undefined)})
+    });
+    if(!r.ok)throw new Error('Error al subir el archivo: '+await detalleError(r));
+    ghLog('✔ index.html subido correctamente (copia limpia: registro activo, sin respuestas ni datos).','ok');
+    ghLog('🌐 4/5 Activando GitHub Pages…');
+    r=await fetch(API+'/repos/'+owner+'/'+repo+'/pages',{method:'POST',headers:ghHeaders(token),body:JSON.stringify({source:{branch:'main',path:'/'}})});
+    if(r.status===201||r.status===204)ghLog('✔ GitHub Pages activado.','ok');
+    else if(r.status===409)ghLog('ℹ GitHub Pages ya estaba activado.','info');
+    else ghLog('⚠ No se pudo activar Pages automáticamente ('+r.status+'). Actívalo a mano: repo → Settings → Pages → Branch: main → Save.','err');
+    const url='https://'+owner+'.github.io/'+repo+'/';
+    ghLog('🚀 5/5 ¡Publicación completada!','ok');
+    ghExito(url);
+  }catch(e){
+    ghLog('✖ '+(e.message||e),'err');
+  }finally{
+    btn.disabled=false;
+  }
+});
+
+function ghExito(url){
+  const box=$('ghResultado');box.classList.remove('oculto');
+  box.innerHTML='<p style="margin-bottom:6px">🎉 <b>¡Guía publicada!</b> Comparte este enlace con tus estudiantes:</p>'+
+    '<p class="url">'+url+'</p>'+
+    '<div class="botones"><a class="btn btn-wa" href="'+url+'" target="_blank" rel="noopener">🔗 Abrir página</a>'+
+    '<button class="btn btn-sec" id="btnGhCopiar">📋 Copiar enlace</button></div>'+
+    '<p class="mini">(La primera vez tarda 1–2 minutos. Para actualizar, vuelve a pulsar «Publicar».)</p>';
+  $('btnGhCopiar').addEventListener('click',function(){
+    const hecho=()=>{this.textContent='✅ Copiado';const b=this;setTimeout(()=>b.textContent='📋 Copiar enlace',2000);};
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(hecho).catch(()=>{copiarTexto(url);hecho();});}
+    else{copiarTexto(url);hecho();}
+  });
+}
+})();
+</script>
+
+</body></html>
